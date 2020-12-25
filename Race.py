@@ -1,11 +1,12 @@
 import threading
 import turtle
 import random
-
+import time
 
 class Player(turtle.Turtle):
     def __init__(self, color, shape):
         turtle.Turtle.__init__(self)
+        self.speed_of_turtle = random.uniform(1, 1.5)
 
     def color_shape(self, color, shape):
         self.color(color)
@@ -18,10 +19,11 @@ class Player(turtle.Turtle):
         self.penup()
         self.setpos((self.x, self.y))
         self.pendown()
-        self.setheading((self.head))
+        self.setheading(self.head)
 
     def race(self):
-        self.speed(random.uniform(1, 1.5))
+
+        self.speed(self.speed_of_turtle)
         self.forward(400)
 
 
@@ -45,7 +47,23 @@ def start_race():
     thread3.start()
 
 
+
+
 turtle.listen()
 turtle.onkey(start_race, "Up")
+
+
+print(t1.speed_of_turtle)
+print(t2.speed_of_turtle)
+print(t3.speed_of_turtle)
+
+speed_list = [t1.speed_of_turtle, t2.speed_of_turtle, t3.speed_of_turtle]
+max_speed = max(speed_list)
+for speed in speed_list:
+    if max_speed == speed:
+        print('the max speed is for', speed_list.index(speed) + 1)
+
+
+
 
 turtle.Screen().exitonclick()
