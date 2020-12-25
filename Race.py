@@ -1,46 +1,44 @@
-import turtle
 import threading
+import turtle
 import random
 
-t1 = turtle.Turtle()
-t2 = turtle.Turtle()
-t3 = turtle.Turtle()
 
-t1.color("black")
-t2.color("blue")
-t3.color("red")
-t1.shape("turtle")
-t2.shape("turtle")
-t3.shape("turtle")
-t1.penup()
-t2.penup()
-t3.penup()
-t1.setpos((-200, -200))
-t2.setpos((0, -200))
-t3.setpos((200, -200))
-t1.setheading(90)
-t2.setheading(90)
-t3.setheading(90)
+class Player(turtle.Turtle):
+    def __init__(self, color, shape):
+        turtle.Turtle.__init__(self)
 
+    def color_shape(self, color, shape):
+        self.color(color)
+        self.shape(shape)
 
-def t1_forward():
-    t1.speed(random.uniform(1, 1.5))
-    t1.forward(400)
+    def set_possition(self, x, y, head):
+        self.x = x
+        self.y = y
+        self.head = head
+        self.penup()
+        self.setpos((self.x, self.y))
+        self.pendown()
+        self.setheading((self.head))
+
+    def race(self):
+        self.speed(random.uniform(1, 1.5))
+        self.forward(400)
 
 
-def t2_forward():
-    t2.speed(random.uniform(1, 1.5))
-    t2.forward(400)
+t1 = Player("red", "turtle")
+t2 = Player("red", "turtle")
+t3 = Player("red", "turtle")
+t1.color_shape("black", "turtle")
+t2.color_shape("red", "turtle")
+t3.color_shape("green", "turtle")
+t1.set_possition(-200, -200, 90)
+t2.set_possition(0, -200, 90)
+t3.set_possition(200, -200, 90)
 
+thread1 = threading.Thread(target=t1.race)
+thread2 = threading.Thread(target=t2.race)
+thread3 = threading.Thread(target=t3.race)
 
-def t3_forward():
-    t3.speed(random.uniform(1, 1.5))
-    t3.forward(400)
-
-
-thread1 = threading.Thread(target=t1_forward)
-thread2 = threading.Thread(target=t2_forward)
-thread3 = threading.Thread(target=t3_forward)
 thread1.start()
 thread2.start()
 thread3.start()
