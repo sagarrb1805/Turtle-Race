@@ -1,6 +1,7 @@
 import threading
 import turtle
 import random
+import time
 
 
 class Player(turtle.Turtle):
@@ -10,7 +11,7 @@ class Player(turtle.Turtle):
         self.color(color)
         self.shape(shape)
 
-    def set_possition(self, x, y, head):
+    def set_position(self, x, y, head):
         self.x = x
         self.y = y
         self.head = head
@@ -24,17 +25,18 @@ class Player(turtle.Turtle):
         self.forward(400)
 
 
-t1 = Player("black", "turtle")
+t1 = Player("purple", "turtle")
 t2 = Player("red", "turtle")
 t3 = Player("green", "turtle")
 
+t1.set_position(-300, -200, 90)
+t2.set_position(0, -200, 90)
+t3.set_position(300, -200, 90)
 
-t1.set_possition(-300, -200, 90)
-t2.set_possition(0, -200, 90)
-t3.set_possition(300, -200, 90)
-
-
-
+turtle.write(arg="Press up key", move=True, align="center",
+             font=("Verdana", 20, "normal"))
+time.sleep(1)
+turtle.clear()
 
 
 def start_race():
@@ -49,14 +51,14 @@ def start_race():
 
 
 speed_list = [t1.speed_of_turtle, t2.speed_of_turtle, t3.speed_of_turtle]
-max_speed = max(speed_list)
+max_speed_index = speed_list.index(max(speed_list))
+color_list = ["Purple", "Red", "Green"]
 
 
 def result():
-    for speed in speed_list:
-        if max_speed == speed:
-            print('the max speed is for', speed_list.index(speed) + 1)
-            turtle.write(arg="The winner is {}".format(speed_list.index(speed) + 1), move=True, align="center", font=("Verdana", 30, "normal"))
+    turtle.write(arg="The winner is {}".format(color_list[max_speed_index]), move=True, align="center",
+                 font=("Verdana", 30, "normal"))
+    turtle.color(color_list[max_speed_index].lower())
 
 
 turtle.listen()
