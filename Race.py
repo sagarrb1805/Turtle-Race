@@ -37,8 +37,9 @@ t1.set_possition(-200, -200, 90)
 t2.set_possition(0, -200, 90)
 t3.set_possition(200, -200, 90)
 
-
+run = False
 def start_race():
+
     thread1 = threading.Thread(target=t1.race)
     thread2 = threading.Thread(target=t2.race)
     thread3 = threading.Thread(target=t3.race)
@@ -46,22 +47,31 @@ def start_race():
     thread2.start()
     thread3.start()
 
+    T = threading.Timer(5.5 * min_speed, result)
+    T.start()
+
+
+speed_list = [t1.speed_of_turtle, t2.speed_of_turtle, t3.speed_of_turtle]
+max_speed = max(speed_list)
+min_speed = min(speed_list)
+
+def result():
+    print(t1.speed_of_turtle)
+    print(t2.speed_of_turtle)
+    print(t3.speed_of_turtle)
+
+
+
+    for speed in speed_list:
+        if max_speed == speed:
+            print('the max speed is for', speed_list.index(speed) + 1)
+
 
 
 
 turtle.listen()
 turtle.onkey(start_race, "Up")
 
-
-print(t1.speed_of_turtle)
-print(t2.speed_of_turtle)
-print(t3.speed_of_turtle)
-
-speed_list = [t1.speed_of_turtle, t2.speed_of_turtle, t3.speed_of_turtle]
-max_speed = max(speed_list)
-for speed in speed_list:
-    if max_speed == speed:
-        print('the max speed is for', speed_list.index(speed) + 1)
 
 
 
