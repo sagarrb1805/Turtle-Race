@@ -35,12 +35,17 @@ t1.set_possition(-200, -200, 90)
 t2.set_possition(0, -200, 90)
 t3.set_possition(200, -200, 90)
 
-thread1 = threading.Thread(target=t1.race)
-thread2 = threading.Thread(target=t2.race)
-thread3 = threading.Thread(target=t3.race)
 
-thread1.start()
-thread2.start()
-thread3.start()
+def start_race():
+    thread1 = threading.Thread(target=t1.race)
+    thread2 = threading.Thread(target=t2.race)
+    thread3 = threading.Thread(target=t3.race)
+    thread1.start()
+    thread2.start()
+    thread3.start()
+
+
+turtle.listen()
+turtle.onkey(start_race, "Up")
 
 turtle.Screen().exitonclick()
